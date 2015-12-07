@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3EAE2EEB-CE84-4F47-9457-99226F7C9C35}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClientManager</RootNamespace>
+    <AssemblyName>ClientManager</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IManageList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ServerInfo.cs" />
+    <Compile Include="ServerInfoManager.cs" />
+    <Compile Include="Service References\FileTransferServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="StreamWithProgress.cs" />
+    <Compile Include="XMLManageList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+    <None Include="Service References\FileTransferServiceReference\ClientManager.FileTransferServiceReference.SendFileResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FileTransferServiceReference\ClientManager.FileTransferServiceReference.UkazFileInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FileTransferServiceReference\FileService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileTransferServiceReference\FileService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileTransferServiceReference\FileService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileTransferServiceReference\FileTransferService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\processing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\off-server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search-server-icon %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stock_save_ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fasticon-Servers-Off-server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\enable_server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\success.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search_server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\FileTransferServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileTransferServiceReference\FileService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileTransferServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileTransferServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileTransferServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
