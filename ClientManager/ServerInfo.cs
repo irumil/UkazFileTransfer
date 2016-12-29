@@ -5,6 +5,8 @@ using System.Drawing;
 using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using ClientManager.FileTransferServiceReference;
 
@@ -35,6 +37,7 @@ namespace ClientManager
         private string _movePath;
         private string _info;
         private string _fileName;
+        private int _errorCount;
         private long _length;
         private string _errorText;
         private Image _iconStatus = Properties.Resources.empty;
@@ -71,7 +74,7 @@ namespace ClientManager
             _serverStatusCollection.Add(ServerStatus.FileTransferStart, () =>
             {
                 _iconStatus = Properties.Resources.start;
-                _info = string.Format("Старт передачи файла {0}...", _fileName);
+                _info = string.Format("Старт передачи файла {0}... попытка {1}", _fileName, _errorCount);
             });
             _serverStatusCollection.Add(ServerStatus.FileTransfered, () =>
             {
@@ -247,34 +250,45 @@ namespace ClientManager
         {
             if ((fileName == string.Empty) && (_movePath == string.Empty)) 
                 throw new Exception("Не указан файл для отправки или директория для перемещения");
-           
-            var client = GetClient();
-            
-            try
-            {
-                 var fileInfo = new FileInfo(fileName);
-                _fileName = fileInfo.Name;
-                _length = fileInfo.Length;
 
-                ServerStatus = ServerStatus.FileTransferStart;
-                
-                using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            var transferOk = false;
+            _errorCount=1;
+
+            while (!transferOk && _errorCount!=4)
+            {
+                var client = GetClient();
+
+                try
                 {
-                    using (var uploadStreamWithProgress = new StreamWithProgress(stream))
+                    var fileInfo = new FileInfo(fileName);
+                    _fileName = fileInfo.Name;
+                    _length = fileInfo.Length;
+
+                    ServerStatus = ServerStatus.FileTransferStart;
+
+                    using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                     {
-                        uploadStreamWithProgress.ProgressChanged += uploadStreamWithProgress_ProgressChanged;
-                        await client.SendFileAsync(_movePath, _fileName, _length, Password, uploadStreamWithProgress);
-                        ServerStatus = ServerStatus.FileTransfered;
+                        using (var uploadStreamWithProgress = new StreamWithProgress(stream))
+                        {
+                            uploadStreamWithProgress.ProgressChanged += uploadStreamWithProgress_ProgressChanged;
+                            await client.SendFileAsync(_movePath, _fileName, _length, Password, uploadStreamWithProgress);
+                            ServerStatus = ServerStatus.FileTransfered;
+
+                            transferOk = true;
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                SetExceptionStatus(ex);
-            }
-            finally
-            {
-                client.Close();
+                catch (Exception ex)
+                {
+                    //счетчик
+                    _errorCount++;
+                    SetExceptionStatus(ex);
+                    Thread.Sleep(3000);
+                }
+                finally
+                {
+                    client.Close();
+                }
             }
         }
 
@@ -316,9 +330,24 @@ namespace ClientManager
         {
             _errorText = ex.Message;
 
+            
+
             if (ex.InnerException != null)
             {
                 _errorText = ex.InnerException.Message;
+            }
+
+            ServerStatus = ServerStatus.ServiceError;
+        }
+
+        private void SetExceptionStatus(Exception ex, int errorCnt)
+        {
+            _errorText = ex.Message + " "+errorCnt;
+            
+
+            if (ex.InnerException != null)
+            {
+                _errorText = ex.InnerException.Message+" "+errorCnt;
             }
 
             ServerStatus = ServerStatus.ServiceError;

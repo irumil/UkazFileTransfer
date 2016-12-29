@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ClientManager
@@ -66,9 +67,10 @@ namespace ClientManager
 
             foreach (var serverInfo in _listManger.Where(x => x.NeedCopy).Reverse())
             {
-                serverInfo.SendFileToServiceAsync(fileToUpload);
+               serverInfo.SendFileToServiceAsync(fileToUpload);
             }
         }
+
 
         public void StartCheckStatusFiles(string fileToUpload)
         {

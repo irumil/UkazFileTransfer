@@ -63,13 +63,13 @@
             this.LogListBox.IntegralHeight = false;
             this.LogListBox.Location = new System.Drawing.Point(5, 335);
             this.LogListBox.Name = "LogListBox";
-            this.LogListBox.Size = new System.Drawing.Size(794, 197);
+            this.LogListBox.Size = new System.Drawing.Size(836, 197);
             this.LogListBox.TabIndex = 16;
             // 
             // BrowseButton
             // 
             this.BrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BrowseButton.Location = new System.Drawing.Point(724, 10);
+            this.BrowseButton.Location = new System.Drawing.Point(766, 10);
             this.BrowseButton.Name = "BrowseButton";
             this.BrowseButton.Size = new System.Drawing.Size(75, 23);
             this.BrowseButton.TabIndex = 15;
@@ -83,7 +83,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FileTextBox.Location = new System.Drawing.Point(94, 12);
             this.FileTextBox.Name = "FileTextBox";
-            this.FileTextBox.Size = new System.Drawing.Size(624, 20);
+            this.FileTextBox.Size = new System.Drawing.Size(666, 20);
             this.FileTextBox.TabIndex = 14;
             // 
             // openFileDialog1
@@ -109,7 +109,7 @@
             this.serverInfoDataGridView.Location = new System.Drawing.Point(5, 82);
             this.serverInfoDataGridView.Name = "serverInfoDataGridView";
             this.serverInfoDataGridView.RowHeadersWidth = 25;
-            this.serverInfoDataGridView.Size = new System.Drawing.Size(794, 247);
+            this.serverInfoDataGridView.Size = new System.Drawing.Size(836, 247);
             this.serverInfoDataGridView.TabIndex = 26;
             this.serverInfoDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.serverInfoDataGridView_DataError);
             // 
@@ -137,7 +137,7 @@
             // 
             this.aboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.aboutButton.Image = global::Client.Properties.Resources.information_3114;
-            this.aboutButton.Location = new System.Drawing.Point(759, 36);
+            this.aboutButton.Location = new System.Drawing.Point(801, 36);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(40, 40);
             this.aboutButton.TabIndex = 34;
@@ -234,7 +234,7 @@
             this.status.HeaderText = "Статус";
             this.status.Name = "status";
             this.status.ReadOnly = true;
-            this.status.Width = 300;
+            this.status.Width = 350;
             // 
             // PercentComplete
             // 
@@ -256,7 +256,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 540);
+            this.ClientSize = new System.Drawing.Size(845, 540);
             this.Controls.Add(this.checkServiceButton);
             this.Controls.Add(this.aboutButton);
             this.Controls.Add(this.saveListButton);
